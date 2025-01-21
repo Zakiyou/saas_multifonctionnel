@@ -1,0 +1,98 @@
+{% extends 'layout/app.html' %}
+
+{% block css %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    {% include 'composant/pdf_encrypt.html' %}
+{% endblock %}
+
+{% block js %}
+<script>
+    document.getElementById('encryption-form').addEventListener('submit', function (e) {
+        e.preventDefault(); // Empêcher le rechargement de la page par défaut
+    
+        var fileInput = document.getElementById('file');
+        var file = fileInput.files[0];
+    
+        // Vérification si un fichier est sélectionné
+        if (!file) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur',
+                text: 'Veuillez choisir un fichier PDF.',
+            });
+            return;
+        }
+    
+        // Vérification de l'extension ou du type MIME
+        if (file.type !== 'application/pdf' && !file.name.endsWith('.pdf')) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Fichier invalide',
+                text: 'Seuls les fichiers PDF sont acceptés. Veuillez réessayer.',
+            });
+            return;
+        }
+    
+        // Afficher une alerte de traitement en cours
+        Swal.fire({
+            title: 'Traitement en cours...',
+            text: 'Votre fichier est en train d’être chiffré. Veuillez patienter.',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            },
+        });
+    
+        var formData = new FormData(this);
+    
+        fetch('/encrypt-pdf/', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.file_path) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Fichier prêt à être téléchargé.',
+                    showCloseButton: true,
+                    showConfirmButton: false, 
+                    {% comment %} timer: 10000,
+                    timerProgressBar: true, {% endcomment %}
+                    html: `
+                        <a href="${data.file_path}" class="btn btn-success mt-3" download="${data.file_name}">Télécharger le fichier</a>
+                    `,
+                });
+                
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur',
+                    text: 'Une erreur est survenue pendant le chiffrement. Veuillez réessayer.',
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Erreur:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur',
+                text: 'Une erreur est survenue. Veuillez réessayer.',
+            });
+        });
+    });
+    
+    // Afficher/Masquer le mot de passe
+    document.getElementById('togglePassword').addEventListener('click', function () {
+        var passwordField = document.getElementById('password');
+        var type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordField.setAttribute('type', type);
+        this.classList.toggle('fa-eye-slash');
+    });
+    
+</script>
+
+{% endblock %}

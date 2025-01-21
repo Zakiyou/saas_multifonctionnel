@@ -1,0 +1,32 @@
+<section class="container py-2">
+    <div class="alert alert-info text-center shadow-sm mb-3" role="alert">
+        <i class="fas fa-info-circle"></i> Vos fichiers ne seront pas stockés sur le serveur. La confidentialité est notre priorité.
+    </div>
+</section>
+
+<section class="container py-2">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-header text-center bg-primary text-white">
+                    <h4 class="mb-0"><i class="fas fa-image"></i> Supprimez l'arrière-plan de vos images en un clic</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data" id="remove-bg-form">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="image" class="form-label fw-bold">Choisissez une image</label>
+                            <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+                            <small class="text-muted">Seuls les formats JPG, PNG et JPEG sont acceptés.</small>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-magic"></i> Retirer l'arrière-plan
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

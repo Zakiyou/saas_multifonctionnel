@@ -1,0 +1,71 @@
+<!-- Features Section -->
+<section id="features" class="container py-5">
+    <div class="row text-center mb-4">
+        <h2>Nos Fonctionnalités</h2>
+        <p class="text-muted">Cliquez sur une fonction pour en savoir plus.</p>
+    </div>
+    <div class="row g-4">
+        <!-- Chiffrement PDF -->
+        <div class="col-md-4">
+            <div class="card feature-card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Chiffrement PDF</h5>
+                    <p class="card-text">Protégez vos fichiers PDF avec un mot de passe.</p>
+                    <a href="{% url 'pdf_encrypt' %}" class="btn btn-custom">Essayer</a>
+                </div>
+            </div>
+        </div>
+        <!-- Manipulation d'Images -->
+<div class="col-md-4">
+    <div class="card feature-card">
+        <div class="card-body text-center">
+            <h5 class="card-title">Enlevez le Fond de Votre Image</h5>
+            <p class="card-text">Changez le fond de votre image facilement</p>
+            <a href="{% url 'ViewRemoveBg' %}" class="btn btn-custom">Essayer</a>
+        </div>
+    </div>
+</div>
+
+        <!-- Génération QR Code -->
+        <div class="col-md-4">
+            <div class="card feature-card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Génération QR Code</h5>
+                    <p class="card-text">Créez des QR codes à partir de liens ou textes.</p>
+                    <a href="/generate-qr" class="btn btn-custom">Essayer</a>
+                </div>
+            </div>
+        </div>
+        <!-- Téléchargement Vidéo -->
+        <div class="col-md-4">
+            <div class="card feature-card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Téléchargement Vidéo</h5>
+                    <p class="card-text">Téléchargez des vidéos depuis YouTube et autres.</p>
+                    <a href="/download-video" class="btn btn-custom">Essayer</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Conversion Multimédia -->
+        <div class="col-md-4">
+            <div class="card feature-card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Conversion Multimédia</h5>
+                    <p class="card-text">Convertissez entre fichiers audio et vidéo.</p>
+                    <a href="/convert-media" class="btn btn-custom">Essayer</a>
+                </div>
+            </div>
+        </div>
+        <!-- Génération de Factures -->
+        <div class="col-md-4">
+            <div class="card feature-card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Génération de Factures</h5>
+                    <p class="card-text">Créez facilement des factures PDF.</p>
+                    <a href="/generate-invoice" class="btn btn-custom">Essayer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

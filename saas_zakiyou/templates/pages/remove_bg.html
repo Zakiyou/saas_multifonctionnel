@@ -1,0 +1,72 @@
+{% extends 'layout/app.html' %}
+
+{% block css %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    {% include 'composant/remove_bg.html' %}
+{% endblock %}
+
+{% block js %}
+<script>
+    document.getElementById('remove-bg-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var fileInput = document.getElementById('image');
+        var file = fileInput.files[0];
+
+        if (!file) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur',
+                text: 'Veuillez choisir une image.',
+            });
+            return;
+        }
+
+        Swal.fire({
+            title: 'Traitement en cours...',
+            text: 'Votre image est en train d’être traitée. Veuillez patienter.',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            },
+        });
+
+        var formData = new FormData(this);
+
+        fetch('/remove-bg/', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.file_path) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Image prête.',
+                    showCloseButton: true,
+                    showConfirmButton: false,
+                    html: `<a href="${data.file_path}" class="btn btn-success mt-3" download="${data.file_name}">Télécharger l'image</a>`,
+                });
+                
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur',
+                    text: 'Une erreur est survenue pendant le traitement. Veuillez réessayer.',
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Erreur:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur',
+                text: 'Une erreur est survenue. Veuillez réessayer.',
+            });
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,42 @@
+<section class="container py-2">
+    <div class="alert alert-info text-center shadow-sm mb-3" role="alert">
+        <i class="fas fa-info-circle"></i> Votre fichier ne sera pas stocké sur le serveur. La confidentialité est notre priorité.
+    </div>
+</section>
+
+<section class="container py-2">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-header text-center bg-primary text-white">
+                    <h4 class="mb-0"><i class="fas fa-lock"></i>  Protégez vos fichiers PDF en quelques clics</h4>
+                </div>
+                <div class="card-body">
+                    
+                    <form method="post" enctype="multipart/form-data" id="encryption-form">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="file" class="form-label fw-bold">Choisissez un fichier PDF</label>
+                            <input type="file" class="form-control" id="file" name="file" accept=".pdf" required>
+                            <small class="text-muted">Seuls les fichiers PDF sont acceptés.</small>
+                        </div>
+                        <div class="mb-3 position-relative">
+                            <label for="password" class="form-label fw-bold">Mot de passe</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Entrez un mot de passe" required>
+                                <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                                    <i class="far fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-file-lock"></i> Chiffrer le fichier
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
